@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ room_name }} Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .room-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #007BFF;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .graph-container {
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        /* Status Circle */
+        .status-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            flex-direction: column;  /* Ensures the content is vertically centered */
+            text-align: center;  /* Centers the text */
+        }
+        .status-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+        }
+        .green {
+            background-color: green;
+        }
+        .red {
+            background-color: red;
+        }
+
+        .green-text {
+            color: green;
+            font-weight: bold;
+        }
+
+        .red-text {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Room Information -->
+    <div class="room-info">
+        <h1>Dashboard: {{ room_name }} (Room {{ room_number }})</h1>
+        <p>Capacity: {{ max_capacity }} | Current Number of People: {{ max_people }} คน | Utilization: {{ utilization_rate }}%</p>
+    </div>
+
+    <!-- Graph Section (Grid Layout) -->
+    <div class="grid-container">
+        <!-- Utilization Status -->
+        <div class="graph-container">
+            <h2>Utilization Status</h2>
+            <div class="status-container">
+                <div class="status-circle {% if utilization_rate >= 50 %}green{% else %}red{% endif %}">
+                    {{ max_people }} / {{ max_capacity }} คน
+                </div>
+                <p class="{% if utilization_rate >= 50 %}green-text{% else %}red-text{% endif %}">
+                    {% if utilization_rate >= 50 %} 
+                        สถานะดี: การใช้งานเกิน 50% 
+                    {% else %} 
+                        สถานะต่ำ: การใช้งานต่ำกว่า 50% 
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+
+        <div class="graph-container">
+            <h2>Line Chart (จำนวนคน)</h2>
+            <div>{{ line_graph_html|safe }}</div>
+        </div>
+
+        <div class="graph-container">
+            <h2>Pie Chart</h2>
+            <div>{{ pie_graph_html|safe }}</div>
+        </div>
+
+        <div class="graph-container">
+            <h2>Utilization Rate (%)</h2>
+            <div>{{ gauge_graph_html|safe }}</div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload CSV and Room Info</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f7;
+            padding: 20px;
+        }
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="text"], input[type="number"], input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Upload CSV and Room Information</h1>
+<form action="/" method="POST" enctype="multipart/form-data">
+    <label for="room_name">Room Name:</label>
+    <input type="text" id="room_name" name="room_name" required>
+
+    <label for="room_number">Room Number:</label>
+    <input type="text" id="room_number" name="room_number" required>
+
+    <label for="max_capacity">Maximum Room Capacity:</label>
+    <input type="number" id="max_capacity" name="max_capacity" required>
+
+    <label for="file">Upload CSV:</label>
+    <input type="file" id="file" name="file" accept=".csv" required>
+
+    <button type="submit">Submit</button>
+</form>
+
+</body>
+</html>
